@@ -1,0 +1,39 @@
+﻿@page "/"
+
+@inject IModalService Modal
+@inject IToastService toastService
+
+<h3>Welcome to the demo of the Common Dialog UI Component</h3>
+
+<button @onclick="@(e => ShowModal(0))" class="btn btn-primary">Yes - No Confirmation</button>
+<button @onclick="@(e => ShowModal(1))" class="btn btn-primary">OK-Cancel Confirmation</button>
+<button @onclick="@(e => ShowModal(3))" class="btn btn-primary">Input Value</button>
+
+@code{
+    //handle the Modal
+    void ShowModal(int action)
+    {
+        var parameters = new ModalParameters();
+        parameters.Add("Heading", "This is a test");
+        parameters.Add("Message", "Let's add a message");
+        parameters.Add("Action", action);
+
+        Modal.OnClose += ModalClosed;
+        Modal.Show<CommonDialog>("", parameters);
+    }
+
+    void ModalClosed(ModalResult modalResult)
+    {
+        if (modalResult.Cancelled)
+        {
+            toastService.ShowInfo("Modal was Cancelled");
+        }
+        else
+        {
+            string msg = modalResult.Data.ToString();
+            toastService.ShowInfo(msg);
+        }
+
+        Modal.OnClose -= ModalClosed;
+    }
+}
