@@ -1,17 +1,22 @@
 ﻿@page "/"
 
+@using UICommonDialogs.CommonDialogData
+@using UIControls
+
 @inject IModalService Modal
 @inject IToastService toastService
 
 <h3>Welcome to the demo of the Common Dialog UI Component</h3>
 
-<button @onclick="@(e => ShowModal(0))" class="btn btn-primary">Yes - No Confirmation</button>
-<button @onclick="@(e => ShowModal(1))" class="btn btn-primary">OK-Cancel Confirmation</button>
-<button @onclick="@(e => ShowModal(3))" class="btn btn-primary">Input Value</button>
+<button @onclick="@(e => ShowModal(CommonDialogTypes.ConfirmationYesNo))" class="btn btn-primary">Yes - No Confirmation</button>
+<button @onclick="@(e => ShowModal(CommonDialogTypes.ConfirmationOkCancel))" class="btn btn-primary">OK-Cancel Confirmation</button>
+<button @onclick="@(e => ShowModal(CommonDialogTypes.ConfirmationWarn))" class="btn btn-primary">Warning Action</button>
+<button @onclick="@(e => ShowModal(CommonDialogTypes.SimpleInput))" class="btn btn-primary">Input Value</button>
+<button @onclick="@(e => ShowModal(CommonDialogTypes.ConfirmationOk))" class="btn btn-primary">Ok Only</button>
 
 @code{
     //handle the Modal
-    void ShowModal(int action)
+    void ShowModal(CommonDialogTypes action)
     {
         var parameters = new ModalParameters();
         parameters.Add("Heading", "This is a test");

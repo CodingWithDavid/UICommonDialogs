@@ -9,9 +9,6 @@ using Microsoft.Extensions.Hosting;
 using Blazored.Modal;
 using Blazored.Toast;
 
-//locals
-using UICommonDialogs.Data;
-
 namespace UICommonDialogs
 {
     public class Startup
@@ -31,7 +28,6 @@ namespace UICommonDialogs
             services.AddServerSideBlazor();
             services.AddBlazoredModal();
             services.AddBlazoredToast();
-            services.AddSingleton<WeatherForecastService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

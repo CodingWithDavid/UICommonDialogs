@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/CardUI
+/CardUI/bin/Debug/netcoreapp3.1
+/CardUI/obj
+/.vs/UICommonDialogs
+/UICommonDialogs/bin/Debug/netcoreapp3.1
+/UICommonDialogs/obj

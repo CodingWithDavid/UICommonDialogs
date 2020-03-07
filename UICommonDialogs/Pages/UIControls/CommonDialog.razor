@@ -1,0 +1,80 @@
+﻿
+@using UICommonDialogs.CommonDialogData 
+
+@inject IModalService ModalService
+@inject IToastService toastService
+
+    <div id="myModal">
+        <div class="modal-dialog modal-confirm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="icon-box">
+                        <i class="@iconClass"></i>
+                    </div>
+                    <h4 class="modal-title">@heading</h4>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center">@message</p>
+                    @if (action == CommonDialogTypes.SimpleInput)
+                    {
+                        <input type="text" class="form-control" name="x" placeholder="enter in value" @bind="inputValue">
+                    }
+                </div>
+                <div class="row">
+                    @if (action == CommonDialogTypes.ConfirmationYesNo)
+                    {
+                        <OkCancelButtons OkBtnLabel="Yes" CancleBtnLabel="No" OnOk="HandleYes" OnCancel="HandleNo" />
+                    }
+                    else if (action == CommonDialogTypes.ConfirmationOkCancel || action == CommonDialogTypes.SimpleInput)
+                    {
+                        <OkCancelButtons />
+                    }
+                    else if (action == CommonDialogTypes.ConfirmationWarn)
+                    {
+                        <OkCancelButtons OkBtnColor="#f15e5e" CancelBtnColor="c1c1c1" />
+                    }
+                    else if (action == CommonDialogTypes.ConfirmationOk)
+                    {
+                        <OkCancelButtons OkBtnOnly="true"/>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+@code {
+
+    [CascadingParameter] ModalParameters Parameters { get; set; }
+
+    private string heading = "";
+    private string message = "Please click YES to confirm";
+    private CommonDialogTypes action = 0;
+    private string inputValue = "";
+    private string iconClass = "fas fa-check";
+
+    protected override void OnInitialized()
+    {
+        if (Parameters != null)
+        {
+            heading = Parameters.TryGet<string>("Heading");
+            message = Parameters.TryGet<string>("Message");
+            action = Parameters.TryGet<CommonDialogTypes>("Action");
+        }
+    }
+
+    private Task HandleYes()
+    {
+        string returnMessage = "Yes";
+        if(action == CommonDialogTypes.SimpleInput)
+        {
+            returnMessage = inputValue;
+        }
+        ModalService.Close(ModalResult.Ok<string>(returnMessage));
+        return null;
+    }
+
+    private Task HandleNo()
+    {
+        ModalService.Cancel();
+        return null;
+    }
+}

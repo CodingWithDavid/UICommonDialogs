@@ -1,0 +1,57 @@
+﻿
+@inject IModalService ModalService
+
+<div class="@btnClass">
+    <button class="btn btn-block ok" @onclick="HandleOk" style="background:@OkBtnColor">@OkBtnLabel</button>
+</div>
+@if (!OkBtnOnly)
+{
+    <div class="col-6">
+        <button class="btn btn-success btn-block" @onclick='HandleCancel' style="background:@CancelBtnColor">@CancleBtnLabel</button>
+    </div>
+}
+
+@code {
+
+    [Parameter] public Func<Task> OnOk { get; set; } = null;
+    [Parameter] public Func<Task> OnCancel { get; set; } = null;
+    [Parameter] public string OkBtnColor { get; set; } = "#82ce34";
+    [Parameter] public string CancelBtnColor { get; set; } = "#c1c1c1";
+    [Parameter] public bool OkBtnOnly { get; set; }
+    [Parameter] public string OkBtnLabel { get; set; } = "OK";
+    [Parameter] public string CancleBtnLabel { get; set; } = "Cancel";
+
+    private string btnClass = "col-6";
+
+    protected override void OnInitialized()
+    {
+        if(OkBtnOnly)
+        {
+            btnClass = "col-12";
+        }
+    }
+
+    private void HandleOk()
+    {
+        if (OnOk != null)
+        {
+            OnOk?.Invoke();
+        }
+        else
+        {
+            ModalService.Close(ModalResult.Ok<string>("yes"));
+        }
+    }
+
+    private void HandleCancel()
+    {
+        if (OnCancel != null)
+        {
+            OnCancel?.Invoke();
+        }
+        else
+        {
+            ModalService.Cancel();
+        }
+    }
+}
