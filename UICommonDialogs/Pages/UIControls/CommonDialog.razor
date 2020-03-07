@@ -59,6 +59,10 @@
             message = Parameters.TryGet<string>("Message");
             action = Parameters.TryGet<CommonDialogTypes>("Action");
         }
+        if(action == CommonDialogTypes.ConfirmationWarn)
+        {
+            iconClass = "fas fa-times";
+        }
     }
 
     private Task HandleYes()

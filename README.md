@@ -38,7 +38,7 @@ a.	With Visual Code you will need to install the C# extensions
 
 ## Resources
 
-- [Chirs Sainty's Blazored Modal] (https://chrissainty.com/blazored-modal-released/)
+- [Chris Sainty's Blazored Modal] (https://chrissainty.com/blazored-modal-released/)
 - [VS Code](https://code.visualstudio.com)
 - [Visual Studio]( https://visualstudio.microsoft.com/)
 
